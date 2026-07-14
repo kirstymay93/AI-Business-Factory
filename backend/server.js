@@ -6,58 +6,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.post("/generate", (req,res)=>{
 
-app.post("/generate", async (req,res)=>{
-
-const idea=req.body.idea;
-
-
-const plan = `
-🚀 AI BUSINESS FACTORY
-
-Business Idea:
-${idea}
-
-🏷 Brand Names:
-${idea} Pro
-${idea} Hub
-Future ${idea}
-
-🎯 Target Customers:
-People who need a faster and easier solution.
-
-🌐 Website:
-Landing page
-Booking system
-Payments
-Customer reviews
-
-📣 Marketing:
-Facebook
-TikTok
-Google
-Email campaigns
-
-💰 Revenue:
-Subscriptions
-Packages
-Premium upgrades
-
-🚀 Launch Plan:
-Day 1: Brand
-Day 2: Website
-Day 3: Marketing
-Day 7: First customers
-`;
-
+const idea = req.body.idea;
 
 res.json({
-result:plan
+result:
+"🚀 Business Plan\n\nIdea: " + idea +
+"\n\n✅ Brand\n✅ Website\n✅ Marketing\n✅ Revenue Plan"
 });
 
-
 });
-
 
 app.listen(8080,()=>{
 console.log("AI Factory running");
