@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AI Business Factory 🚀</title>
+<title>AI Business Factory 3.0</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
 body{
 font-family:Arial;
-background:#050505;
+background:#080808;
 color:white;
-text-align:center;
 padding:20px;
+text-align:center;
 }
 
-.box{
-background:#151515;
+.card{
+background:#161616;
 padding:25px;
 border-radius:20px;
 max-width:600px;
@@ -44,77 +44,144 @@ text-align:left;
 margin-top:20px;
 }
 
-h1{
-font-size:35px;
+.history{
+background:#111;
+padding:15px;
+margin-top:20px;
+border-radius:15px;
 }
-</style>
 
+</style>
 </head>
 
 <body>
 
 <h1>🚀 AI Business Factory</h1>
 
-<p>Create your next business idea in seconds.</p>
+<p>Your AI startup machine</p>
 
-<div class="box">
 
-<input id="idea" placeholder="Example: Mobile car detailing">
+<div class="card">
 
-<button onclick="build()">Generate Business</button>
+<input id="idea" placeholder="Enter business idea">
+
+<button onclick="generate()">Build Business</button>
+
+<button onclick="copyPlan()">Copy Plan</button>
+
+<button onclick="downloadPlan()">Download</button>
+
 
 <div id="result" class="result">
-Your AI business blueprint appears here.
+Waiting for your idea...
 </div>
+
+
+<div class="history">
+
+<h3>Saved Ideas</h3>
+
+<div id="saved"></div>
+
+</div>
+
 
 </div>
 
 
 <script>
 
-function build(){
+
+let plan="";
+
+
+function generate(){
 
 let idea=document.getElementById("idea").value;
 
+
+plan=
+
+"🚀 BUSINESS PLAN\n\n"+
+
+"Business: "+idea+"\n\n"+
+
+"🏷 Brand Ideas\n"+
+idea+" Pro\n"+
+idea+" Hub\n"+
+"Future "+idea+"\n\n"+
+
+"🎯 Customers\n"+
+"People looking for better solutions\n\n"+
+
+"🌐 Website\n"+
+"Landing page + payments + booking\n\n"+
+
+"📣 Marketing\n"+
+"Facebook\nTikTok\nGoogle\nEmail\n\n"+
+
+"💰 Revenue\n"+
+"Subscriptions\nPackages\nPremium services";
+
+
 document.getElementById("result").innerHTML=
+plan.replaceAll("\n","<br>");
 
-"<h2>"+idea+"</h2>"+
 
-"<b>🏷 Brand Names</b><br>"+
-idea+" Pro<br>"+
-idea+" Hub<br>"+
-Future()+"<br><br>"+
-
-"<b>🎯 Customers</b><br>"+
-"People who need faster, cheaper and easier solutions.<br><br>"+
-
-"<b>🌐 Website</b><br>"+
-"Landing page + booking + payment + customer reviews<br><br>"+
-
-"<b>📣 Marketing</b><br>"+
-"Facebook Ads<br>"+
-"TikTok videos<br>"+
-"Google Search<br>"+
-"Email campaigns<br><br>"+
-
-"<b>💰 Revenue</b><br>"+
-"Subscriptions<br>"+
-"Packages<br>"+
-"Premium upgrades<br><br>"+
-
-"<b>🚀 First 7 Days</b><br>"+
-"Day 1 Brand setup<br>"+
-"Day 2 Create website<br>"+
-"Day 3 Start promotion<br>"+
-"Day 7 Get first customer";
+saveIdea(idea);
 
 }
 
-function Future(){
 
-return "Future "+document.getElementById("idea").value;
+function saveIdea(idea){
+
+let old=JSON.parse(localStorage.getItem("ideas")||"[]");
+
+old.push(idea);
+
+localStorage.setItem("ideas",JSON.stringify(old));
+
+showIdeas();
 
 }
+
+
+function showIdeas(){
+
+let list=JSON.parse(localStorage.getItem("ideas")||"[]");
+
+document.getElementById("saved").innerHTML=
+list.map(x=>"• "+x).join("<br>");
+
+}
+
+
+function copyPlan(){
+
+navigator.clipboard.writeText(plan);
+
+alert("Copied!");
+
+}
+
+
+function downloadPlan(){
+
+let file=new Blob([plan]);
+
+let a=document.createElement("a");
+
+a.href=URL.createObjectURL(file);
+
+a.download="business-plan.txt";
+
+a.click();
+
+}
+
+
+showIdeas();
+
 
 </script>
 
