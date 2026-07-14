@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AI Business Factory 4.0</title>
-
+<title>AI Business Factory 5.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-
 body{
 font-family:Arial;
 background:#080808;
@@ -24,178 +22,120 @@ margin:auto;
 }
 
 input,button{
-
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
 border:0;
 font-size:16px;
-
 }
 
 button{
-
 background:#00aaff;
 color:white;
 font-weight:bold;
-
 }
 
 .result{
-
 background:#222;
 padding:20px;
 border-radius:15px;
 margin-top:20px;
 text-align:left;
-
 }
 
 .history{
-
 background:#111;
 padding:15px;
 border-radius:15px;
 margin-top:20px;
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <h1>🚀 AI Business Factory</h1>
-
 <p>Your AI startup machine</p>
-
 
 <div class="card">
 
-
 <input id="idea" placeholder="Enter your business idea">
 
+<button onclick="generate()">Build My Business</button>
 
-<button onclick="generate()">
-Build My Business
-</button>
+<button onclick="copyPlan()">Copy Plan</button>
 
-
-<button onclick="copyPlan()">
-Copy Plan
-</button>
-
-
-<button onclick="downloadPlan()">
-Download Plan
-</button>
-
-
+<button onclick="downloadPlan()">Download Plan</button>
 
 <div id="result" class="result">
-
 Waiting for your idea...
-
 </div>
-
-
 
 <div class="history">
-
 <h3>Saved Ideas</h3>
-
 <div id="saved"></div>
-
 </div>
 
-
-
 </div>
-
-
 
 <script>
-
 
 let plan="";
 
 
-
-function generate(){
-
+async function generate(){
 
 let idea=document.getElementById("idea").value;
 
-
 if(!idea){
-
-alert("Please enter a business idea");
-
+alert("Enter a business idea");
 return;
+}
+
+document.getElementById("result").innerHTML="🤖 Creating...";
+
+
+try{
+
+let response = await fetch(
+"https://YOUR-BACKEND-URL/generate",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+idea:idea
+})
+});
+
+
+let data = await response.json();
+
+plan=data.result;
+
+
+}
+
+catch(error){
+
+plan=
+"🚀 AI BUSINESS PLAN\n\n"+
+"Business: "+idea+
+"\n\n✅ Brand Ideas"+
+"\n✅ Website Plan"+
+"\n✅ Marketing Plan"+
+"\n✅ Revenue Ideas";
 
 }
 
 
-
-plan =
-
-"🚀 AI BUSINESS FACTORY\n\n"+
-
-"BUSINESS IDEA:\n"+
-idea+
-
-"\n\n🏷 BRAND NAME IDEAS\n"+
-idea+" Pro\n"+
-idea+" Hub\n"+
-"Future "+idea+
-
-"\n\n🎯 TARGET CUSTOMERS\n"+
-"People who need a faster, cheaper and easier solution."
-
-+
-
-"\n\n🌐 WEBSITE PLAN\n"+
-"Landing page\n"+
-"Booking system\n"+
-"Payments\n"+
-"Customer reviews"
-
-+
-
-"\n\n📣 MARKETING PLAN\n"+
-"Facebook\n"+
-"TikTok\n"+
-"Google\n"+
-"Email marketing"
-
-+
-
-"\n\n💰 MONEY MAKING OPTIONS\n"+
-"Subscriptions\n"+
-"Packages\n"+
-"Premium services"
-
-+
-
-"\n\n🚀 FIRST 7 DAYS\n"+
-"Day 1: Create brand\n"+
-"Day 2: Build website\n"+
-"Day 3: Start promotion\n"+
-"Day 7: Get first customer";
-
-
-
-document.getElementById("result").innerHTML =
+document.getElementById("result").innerHTML=
 plan.replaceAll("\n","<br>");
 
 
-
 saveIdea(idea);
-
 
 }
 
@@ -203,22 +143,17 @@ saveIdea(idea);
 
 function saveIdea(idea){
 
-
-let ideas =
-JSON.parse(localStorage.getItem("ideas") || "[]");
-
+let ideas=
+JSON.parse(localStorage.getItem("ideas")||"[]");
 
 ideas.push(idea);
-
 
 localStorage.setItem(
 "ideas",
 JSON.stringify(ideas)
 );
 
-
 showIdeas();
-
 
 }
 
@@ -226,17 +161,11 @@ showIdeas();
 
 function showIdeas(){
 
+let ideas=
+JSON.parse(localStorage.getItem("ideas")||"[]");
 
-let ideas =
-JSON.parse(localStorage.getItem("ideas") || "[]");
-
-
-document.getElementById("saved").innerHTML =
-
-ideas.map(
-idea=>"• "+idea
-).join("<br>");
-
+document.getElementById("saved").innerHTML=
+ideas.map(x=>"• "+x).join("<br>");
 
 }
 
@@ -244,13 +173,9 @@ idea=>"• "+idea
 
 function copyPlan(){
 
-
 navigator.clipboard.writeText(plan);
 
-
-alert("Business plan copied!");
-
-
+alert("Copied!");
 
 }
 
@@ -258,39 +183,22 @@ alert("Business plan copied!");
 
 function downloadPlan(){
 
+let file=new Blob([plan]);
 
-let file =
-new Blob([plan],
-{type:"text/plain"});
+let link=document.createElement("a");
 
+link.href=URL.createObjectURL(file);
 
-let link =
-document.createElement("a");
-
-
-link.href =
-URL.createObjectURL(file);
-
-
-link.download =
-"AI-Business-Plan.txt";
-
+link.download="business-plan.txt";
 
 link.click();
-
-
 
 }
 
 
-
 showIdeas();
-
-
 
 </script>
 
-
 </body>
-
 </html>
