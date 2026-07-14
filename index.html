@@ -6,25 +6,25 @@
 
 <style>
 body{
-font-family:Arial,sans-serif;
-background:#111;
+font-family:Arial;
+background:#080808;
 color:white;
 text-align:center;
-padding:30px;
+padding:20px;
 }
-.container{
+.card{
 max-width:600px;
 margin:auto;
-background:#222;
+background:#1c1c1c;
 padding:25px;
-border-radius:15px;
+border-radius:20px;
 }
 input,button{
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
-border:none;
+border:0;
 font-size:16px;
 }
 button{
@@ -32,33 +32,32 @@ background:#00aaff;
 color:white;
 font-weight:bold;
 }
-.result{
-background:#333;
+.output{
+background:#292929;
 padding:20px;
 margin-top:20px;
-border-radius:10px;
+border-radius:15px;
 text-align:left;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
 <h1>🚀 AI Business Factory</h1>
 
-<p>Turn any idea into a complete business launch plan.</p>
+<p>Create your business blueprint in seconds.</p>
 
-<input id="idea" placeholder="Example: Mobile coffee business">
+<input id="idea" placeholder="Enter your idea">
 
-<button onclick="buildBusiness()">
-Build My Business
+<button onclick="generate()">
+Create Business Blueprint
 </button>
 
-<div class="result" id="result">
-Your AI business plan will appear here.
+<div class="output" id="output">
+Your AI business plan appears here.
 </div>
 
 </div>
@@ -66,48 +65,47 @@ Your AI business plan will appear here.
 
 <script>
 
-function buildBusiness(){
+function generate(){
 
 let idea=document.getElementById("idea").value;
 
 if(!idea){
-alert("Enter a business idea first!");
-return;
+idea="AI Startup";
 }
 
-document.getElementById("result").innerHTML=`
+let names=[
+idea+" Labs",
+idea+" Solutions",
+"NextGen "+idea,
+"Future "+idea
+];
 
-<h2>${idea}</h2>
+document.getElementById("output").innerHTML=`
 
-<h3>🏷️ Brand Ideas</h3>
-<ul>
-<li>${idea} Pro</li>
-<li>${idea} Hub</li>
-<li>The Future of ${idea}</li>
-</ul>
+<h2>🚀 ${idea}</h2>
 
-<h3>🌐 Website Plan</h3>
-<ul>
-<li>Landing page</li>
-<li>Customer booking/contact form</li>
-<li>Online payments</li>
-</ul>
+<h3>🏷 Brand Names</h3>
+${names.join("<br>")}
 
-<h3>📣 Marketing Plan</h3>
-<ul>
-<li>Facebook growth campaign</li>
-<li>TikTok content strategy</li>
-<li>Google search presence</li>
-<li>Email customer list</li>
-</ul>
+<h3>🎯 Customers</h3>
+People who need ${idea} services.
 
-<h3>🚀 Launch Checklist</h3>
-<ol>
-<li>Create brand identity</li>
-<li>Build online presence</li>
-<li>Find first 10 customers</li>
-<li>Scale with automation</li>
-</ol>
+<h3>💰 Revenue Model</h3>
+• Subscription plans<br>
+• Premium services<br>
+• Digital products
+
+<h3>📱 Marketing Growth</h3>
+• TikTok videos<br>
+• Facebook community<br>
+• Google search traffic<br>
+• Email list building
+
+<h3>⚡ First 7 Days</h3>
+1. Create brand<br>
+2. Build landing page<br>
+3. Find first customers<br>
+4. Collect feedback<br>
 
 `;
 
