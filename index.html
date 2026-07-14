@@ -1,1 +1,119 @@
-<html><body><h1>🚀 AI Business Factory</h1><p>My first AI business builder</p></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Business Factory</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+}
+.container{
+max-width:600px;
+margin:auto;
+background:#222;
+padding:25px;
+border-radius:15px;
+}
+input,button{
+width:90%;
+padding:15px;
+margin:10px;
+border-radius:10px;
+border:none;
+font-size:16px;
+}
+button{
+background:#00aaff;
+color:white;
+font-weight:bold;
+}
+.result{
+background:#333;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+text-align:left;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 AI Business Factory</h1>
+
+<p>Turn any idea into a complete business launch plan.</p>
+
+<input id="idea" placeholder="Example: Mobile coffee business">
+
+<button onclick="buildBusiness()">
+Build My Business
+</button>
+
+<div class="result" id="result">
+Your AI business plan will appear here.
+</div>
+
+</div>
+
+
+<script>
+
+function buildBusiness(){
+
+let idea=document.getElementById("idea").value;
+
+if(!idea){
+alert("Enter a business idea first!");
+return;
+}
+
+document.getElementById("result").innerHTML=`
+
+<h2>${idea}</h2>
+
+<h3>🏷️ Brand Ideas</h3>
+<ul>
+<li>${idea} Pro</li>
+<li>${idea} Hub</li>
+<li>The Future of ${idea}</li>
+</ul>
+
+<h3>🌐 Website Plan</h3>
+<ul>
+<li>Landing page</li>
+<li>Customer booking/contact form</li>
+<li>Online payments</li>
+</ul>
+
+<h3>📣 Marketing Plan</h3>
+<ul>
+<li>Facebook growth campaign</li>
+<li>TikTok content strategy</li>
+<li>Google search presence</li>
+<li>Email customer list</li>
+</ul>
+
+<h3>🚀 Launch Checklist</h3>
+<ol>
+<li>Create brand identity</li>
+<li>Build online presence</li>
+<li>Find first 10 customers</li>
+<li>Scale with automation</li>
+</ol>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
