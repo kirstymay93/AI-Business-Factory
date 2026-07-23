@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./businessfactory.db"
+}
+
+model BusinessPlan {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  businessName String
+  niche        String
+  targetMarket String
+
+  problem      String
+  solution     String
+
+  businessModel String
+
+  startupCost Float
+
+  revenueMonth1 Float
+  revenueMonth6 Float
+  revenueYear1 Float
+
+  marketingPlan String
+  aiTools       String
+
+  status String @default("Draft")
+}
